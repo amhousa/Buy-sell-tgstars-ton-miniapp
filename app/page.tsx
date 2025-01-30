@@ -56,12 +56,18 @@ function HomePage() {
   }
 
   const handleButtonClick = () => {
-    alert("بزودی...");
+    alert("بزودی...")
+    if (navigator.vibrate) {
+      navigator.vibrate(50)
+    }
   }
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText("https://t.me/Stars_Hub_Bot?start=ref378")
     alert("لینک معرفی کپی شد!")
+    if (navigator.vibrate) {
+      navigator.vibrate(50)
+    }
   }
 
   const renderForm = () => (

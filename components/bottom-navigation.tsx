@@ -32,6 +32,14 @@ export function BottomNavigation({ activeTab, onTabChange, items }: BottomNaviga
     }
   }
 
+  const handleButtonClick = (id: string) => {
+    onTabChange(id)
+    playClickSound()
+    if (navigator.vibrate) {
+      navigator.vibrate(50)
+    }
+  }
+
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 bg-secondary/80 backdrop-blur-md shadow-custom rounded-t-lg"
@@ -43,10 +51,7 @@ export function BottomNavigation({ activeTab, onTabChange, items }: BottomNaviga
             key={item.id}
             variant={activeTab === item.id ? "default" : "ghost"}
             className="flex flex-col items-center"
-            onClick={() => {
-              onTabChange(item.id)
-              playClickSound()
-            }}
+            onClick={() => handleButtonClick(item.id)}
             aria-current={activeTab === item.id ? "page" : undefined}
           >
             <FontAwesomeIcon icon={item.icon} className="h-5 w-5" />
