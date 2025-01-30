@@ -40,7 +40,7 @@ export default function App() {
 function HomePage() {
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<"buy" | "sell">("buy")
-  const [selectedCurrency, setSelectedCurrency] = useState<"ton" | "stars">("ton")
+  const [selectedCurrency, setSelectedCurrency] = useState<"ton" | "stars">("stars")
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -55,17 +55,26 @@ function HomePage() {
     setActiveTab(activeTab === "buy" ? "sell" : "buy")
   }
 
+  const handleButtonClick = () => {
+    alert("بزودی...");
+  }
+
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText("https://t.me/Stars_Hub_Bot?start=ref378")
+    alert("لینک معرفی کپی شد!")
+  }
+
   const renderForm = () => (
     <form onSubmit={handleSubmit} className="space-y-4" dir="rtl">
               <Label htmlFor="currency">انتخاب ارز</Label>
-        <Select onValueChange={(value: "ton" | "stars") => setSelectedCurrency(value)}>
+        <Select onValueChange={(value: "ton" | "stars") => setSelectedCurrency(value)} defaultValue="stars">
           <SelectTrigger className="w-full">
             <SelectValue placeholder="انتخاب ارز" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="ton">
               <span className="flex items-right">
-                <p>TONCOIN - تون</p>
+                <p>TONCOIN - تون کوین</p>
                 <img src="/ton.svg" alt="Ton" className="w-6 h-6 ml-5" />
               </span>
             </SelectItem>
@@ -78,26 +87,29 @@ function HomePage() {
           </SelectContent>
         </Select>
       <div>
-        <Label htmlFor="phone">شماره تلگرام</Label>
-        <Input id="phone" type="tel" placeholder="+989912345678" className="rounded-md text-left" />
+        <Label htmlFor="phone">ID تلگرام</Label>
+        <Input id="text" placeholder="@amhousa" className="rounded-md text-left" />
       </div>
       <div>
 
       </div>
       <div>
-        <Label htmlFor="amount">مقدار {selectedCurrency === "ton" ? "تون" : "استار"}</Label>
+        <Label htmlFor="amount">مقدار {selectedCurrency === "ton" ? "تون کوین" : "استار"}</Label>
         <Input
           id="amount"
           type="number"
-          placeholder={`مقدار ${selectedCurrency === "ton" ? "تون" : "استار"}`}
+          placeholder={`مقدار ${selectedCurrency === "ton" ? "تون کوین" : "استار"}`}
           className="rounded-md"
         />
       </div>
       <div>
-        <Label htmlFor="price">مبلغ به ریال</Label>
-        <Input id="price" type="number" placeholder="مبلغ به ریال" className="rounded-md" />
+        <Label htmlFor="price">مبلغ</Label>
+        <div className="flex items-center">
+          <p id="price" className="rounded-md"> ۵۰،۰۰۰ </p>
+          <span className="ml-2">تومان </span>
+        </div>
       </div>
-      <Button type="submit" className="w-full rounded-md" disabled={isLoading}>
+      <Button type="submit" className="w-full rounded-md" disabled={isLoading} onClick={handleButtonClick}>
         {isLoading ? "در حال پردازش..." : activeTab === "buy" ? "پرداخت" : "درخواست فروش"}
       </Button>
     </form>
@@ -140,7 +152,7 @@ function HomePage() {
           <TabsContent value="buy">
             <Card className="shadow-custom border border-border/50 rounded-lg w-full">
               <CardHeader>
-                <CardTitle className="text-right">خرید تون و استار</CardTitle>
+                <CardTitle className="text-center">خرید تون کوین و استار</CardTitle>
               </CardHeader>
               <CardContent>{renderForm()}</CardContent>
             </Card>
@@ -148,7 +160,7 @@ function HomePage() {
           <TabsContent value="sell">
             <Card className="shadow-custom border border-border/50 rounded-lg w-full">
               <CardHeader>
-                <CardTitle className="text-right">فروش تون و استار</CardTitle>
+                <CardTitle className="text-center">فروش تون کوین و استار</CardTitle>
               </CardHeader>
               <CardContent>{renderForm()}</CardContent>
             </Card>
@@ -165,9 +177,28 @@ function HomePage() {
           />
           <h3 className="text-xl font-bold mb-2 text-center">استارز هاب</h3>
           <p className="text-center text-sm leading-relaxed">
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون
-            بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون کوین
+            بلکه روزنامه و مجله در ستون کوین و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
             با هدف بهبود ابزارهای کاربردی می باشد.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-custom border border-border/50 rounded-lg w-full mt-6">
+        <CardContent className="p-6 flex flex-col items-center">
+          <h3 className="text-xl font-bold mb-2 text-center">امتیاز روزانه</h3>
+          <p className="text-center text-sm leading-relaxed">امتیاز شما: 0</p>
+          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full rounded-md" onClick={handleButtonClick}>
+            دریافت امتیاز
+          </button>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-custom border border-border/50 rounded-lg w-full mt-6">
+        <CardContent className="p-6 flex flex-col items-center">
+          <h3 className="text-xl font-bold mb-2 text-center">لینک معرفی شما</h3>
+          <p className="text-center text-sm leading-relaxed cursor-pointer" onClick={handleCopyClick}>
+            https://t.me/Stars_Hub_Bot?start=ref378
           </p>
         </CardContent>
       </Card>
@@ -220,7 +251,7 @@ function SupportPage() {
 function HistoryPage() {
   const transactions = [
     { id: 1, type: "خرید", amount: "100", token: "استار", date: "1402/12/01" },
-    { id: 2, type: "فروش", amount: "50", token: "تون", date: "1402/11/28" },
+    { id: 2, type: "فروش", amount: "50", token: "تون کوین", date: "1402/11/28" },
     // Add more transactions as needed
   ]
 
@@ -261,18 +292,18 @@ function ReferralPage() {
             <Label htmlFor="referralLink">لینک معرفی شما</Label>
             <Input
               id="referralLink"
-              value="https://t.me/YourBotUsername?start=ref123456"
+              value="https://t.me/Stars_Hub_Bot?start=ref378"
               readOnly
               className="rounded-md"
             />
           </div>
           <div>
             <h3 className="font-semibold mb-2">تعداد زیرمجموعه‌های فعال</h3>
-            <p className="text-2xl font-bold">15</p>
+            <p className="text-2xl font-bold">0</p>
           </div>
           <div>
             <h3 className="font-semibold mb-2">درآمد کل از معرفی</h3>
-            <p className="text-2xl font-bold">1,000,000 ریال</p>
+            <p className="text-2xl font-bold">0 تومان</p>
           </div>
         </CardContent>
       </Card>

@@ -5,8 +5,8 @@ import "./globals.css"
 const vazirmatn = Vazirmatn({ subsets: ["arabic"] })
 
 export const metadata: Metadata = {
-  title: "خرید و فروش استار و تون",
-  description: "اپلیکیشن تلگرام برای خرید و فروش استار و تون",
+  title: "خرید و فروش استار و تون کوین",
+  description: "اپلیکیشن تلگرام برای خرید و فروش استار و تون کوین",
 }
 
 export default function RootLayout({
